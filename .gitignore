@@ -1,0 +1,109 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+
+
+
+
+import React, { useEffect, useRef, useState, useCallback } from "react";
+
+function Timer() {
+  const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0, d: 0 });
+  const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef(null);
+
+  const run = useCallback(() => {
+    setTime((prevTime) => {
+      let { ms, s, m, h, d } = prevTime;
+      ms++;
+      if (ms === 100) {
+        s++;
+        ms = 0;
+      }
+      if (s === 60) {
+        m++;
+        s = 0;
+      }
+      if (m === 60) {
+        h++;
+        m = 0;
+      }
+      if (h === 24) {
+        d++;
+        h = 0;
+      }
+
+      return { ms, s, m, h, d };
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isRunning) {
+      intervalRef.current = setInterval(run, 10);
+      console.log("interval", intervalRef.current);
+    } else if (!isRunning && intervalRef.current) {
+      console.log("clearinterval", intervalRef.current);
+
+      clearInterval(intervalRef.current);
+    }
+
+    return () => clearInterval(intervalRef.current);
+  }, [isRunning, run]);
+
+  const reset = () => {
+    setIsRunning(false);
+    setTime({ ms: 0, s: 0, m: 0, h: 0, d: 0 });
+  };
+  return (
+    <div className="flex justify-evenly my-2 w-full">
+      <div className="font-IBM text-sm font-medium">
+        {time.d > 0 ? (
+          <span title="Days">{time.h > 10 ? time.h : "0" + time.h}:</span>
+        ) : (
+          ""
+        )}
+        <span title="Hours">{time.h >= 10 ? time.h : "0" + time.h}:</span>
+        <span title="Minutes">{time.m >= 10 ? time.m : "0" + time.m}:</span>
+        <span title="Seconds">{time.s >= 10 ? time.s : "0" + time.s}:</span>
+        <span className="text-xs inline-block w-5 text-center">
+          {time.ms >= 10 ? time.ms : "0" + time.ms}
+        </span>
+      </div>
+      <div className="flex gap-3">
+        <button
+          className="text-sm bg-gray-300 px-2 py-0.5"
+          onClick={() => setIsRunning((prev) => !prev)}
+        >
+          {isRunning ? "Stop" : "Start"}
+        </button>
+        <button className="text-sm bg-gray-300 px-2 py-0.5" onClick={reset}>
+          Reset
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default Timer;
