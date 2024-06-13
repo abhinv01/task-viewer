@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { PContext } from "./HeadComp";
 import Modal from "./Modal";
 
-function EditTask({ task }) {
+function EditTask({ task, disabld }) {
   const [editModal, setEditModal] = useState(false);
   const [taskData, setTaskData] = useState({});
 
@@ -33,10 +33,11 @@ function EditTask({ task }) {
   return (
     <>
       <button
+        disabled={disabld}
         onClick={() => {
           setEditModal(true);
         }}
-        className="px-4 py-1 bg-indigo-300 rounded-md hover:bg-indigo-500 hover:font-semibold "
+        className="px-4 py-1 bg-indigo-300 rounded-md hover:bg-indigo-500 hover:font-semibold disabled:bg-gray-600 "
       >
         Edit 🖊
       </button>

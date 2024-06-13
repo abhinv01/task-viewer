@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { PContext } from "./HeadComp";
 
-function Timer({ task }) {
+function Timer({ task, disabld }) {
   const [time, setTime] = useState(task.duration);
   const [strStp, setStrStp] = useState("Start");
   const { taskList, setTaskList } = useContext(PContext);
@@ -93,14 +93,16 @@ function Timer({ task }) {
       </div>
       <div className="flex gap-3 text-sm">
         <button
+          disabled={disabld}
           onClick={startStop}
-          className="py-0.5 px-1.5 bg-gray-300 active:bg-gray-400"
+          className="py-0.5 px-1.5 bg-gray-300 active:bg-gray-400 disabled:bg-gray-600"
         >
           {strStp}
         </button>
         <button
+          disabled={disabld}
           onClick={reset}
-          className="py-0.5 px-1.5 bg-gray-300 active:bg-gray-400"
+          className="py-0.5 px-1.5 bg-gray-300 active:bg-gray-400 disabled:bg-gray-600 "
         >
           Reset
         </button>
