@@ -76,9 +76,19 @@ function HeadComp() {
           <div className="mx-1 md:mx-4 rounded px-6 py-4 bg-gradient-to-r from-blue-200 from-10% via-blue-100 via-30% to-blue-200 to-90% ">
             <h1 className="text-xl font-extrabold ">The Task Viewer</h1>
             <span>
-              Click <AddTask taskList={taskList} setTaskList={setTaskList} /> to
-              add new task
+              Click{" "}
+              <span>
+                <AddTask taskList={taskList} setTaskList={setTaskList} />{" "}
+              </span>
+              to add new task
             </span>
+          </div>
+
+          <div className="py-4">
+            <div className="mx-1 md:mx-4 rounded px-6 py-1 font-medium bg-gradient-to-r from-violet-400 from-10% via-violet-300 via-40% to-violet-400 to-90% ">
+              {/* <h1 className="text-xl font-extrabold ">The Task Viewer</h1> */}
+              <span>Drag the task to completed section</span>
+            </div>
           </div>
 
           <div className="flex flex-row gap-1 md:gap-3 mx-1 md:mx-4 ">

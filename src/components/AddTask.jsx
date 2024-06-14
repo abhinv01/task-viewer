@@ -39,15 +39,17 @@ const AddTask = ({ taskList, setTaskList }) => {
       </button>
 
       {showModal ? (
-        <Modal
-          handleInput={handleInput}
-          handleAdd={handleAdd}
-          setShowModal={setShowModal}
-          taskData={taskData}
-          details={{ head: "Add new task", button: "Create Task" }}
-        />
+        <>
+          <Modal
+            handleInput={handleInput}
+            handleAdd={handleAdd}
+            setShowModal={setShowModal}
+            taskData={taskData}
+            details={{ head: "Add new task", button: "Create Task" }}
+          />
+        </>
       ) : (
-        ""
+        <></>
       )}
     </>
   );
