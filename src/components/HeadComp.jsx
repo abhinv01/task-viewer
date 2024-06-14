@@ -18,7 +18,7 @@ function HeadComp() {
       setTaskList(JSON.parse(storedTasks));
     }
     if (completedStored) {
-      // setCompleted(JSON.parse(completedStored));
+      setCompleted(JSON.parse(completedStored));
     }
   }, []);
 
@@ -44,7 +44,7 @@ function HeadComp() {
         "completedTask",
         JSON.stringify([
           ...prev,
-          { moveTask, title, description, id: timeStamp, duration },
+          { title, description, id: timeStamp, duration },
         ])
       );
 
