@@ -35,23 +35,47 @@ function HeadComp() {
     collect: (monitor) => ({ isOver: !!monitor.isOver() }),
   }));
 
+  const updateTaskList = (timeStampId) => {
+    let newTaskList = JSON.parse(localStorage.getItem("taskList"));
+    let updateTaskList = newTaskList.filter((item) => item.id !== timeStampId);
+    console.log(newTaskList);
+    console.log(updateTaskList);
+
+    localStorage.setItem("taskList", JSON.stringify(updateTaskList));
+    setTaskList(updateTaskList);
+  };
+
   const addToCompleted = (id, title, description, timeStamp, duration) => {
-    const moveTask = taskList.filter((task) => id === task.id);
+    const moveTask = taskList.filter((task) => task.id === id);
 
     // console.log(moveTask, id, title, description, timeStamp, duration);
-    setCompleted((prev) => {
-      localStorage.setItem(
-        "completedTask",
-        JSON.stringify([
-          ...prev,
-          { title, description, id: timeStamp, duration },
-        ])
-      );
 
-      return [
-        ...prev,
-        { moveTask, title, description, id: timeStamp, duration },
-      ];
+    setCompleted((prev) => {
+      let isPresent = prev.some((card) => card.id === timeStamp);
+      console.log("isPre", isPresent);
+      if (!isPresent) {
+        localStorage.setItem(
+          "completedTask",
+          JSON.stringify([
+            ...prev,
+            { title, description, id: timeStamp, duration },
+          ])
+        );
+
+        return [
+          ...prev,
+          {
+            moveTask,
+            title,
+            description,
+            id: timeStamp,
+            duration,
+            isCheck: true,
+          },
+        ];
+      } else {
+        return prev;
+      }
     });
 
     // console.log(id, title, description, timeStamp, duration);
@@ -67,6 +91,7 @@ function HeadComp() {
     // localStorage.setItem("taskList", JSON.stringify(newTaskList));
 
     // setTaskList(newTaskList);
+    updateTaskList(timeStamp);
   };
 
   return (
@@ -87,7 +112,10 @@ function HeadComp() {
           <div className="py-4">
             <div className="mx-1 md:mx-4 rounded px-6 py-1 font-medium bg-gradient-to-r from-violet-400 from-10% via-violet-300 via-40% to-violet-400 to-90% ">
               {/* <h1 className="text-xl font-extrabold ">The Task Viewer</h1> */}
-              <span>Drag the task to completed section</span>
+              <span>
+                💡 Drag the task to completed section, checkbox for moving in
+                todo
+              </span>
             </div>
           </div>
 
@@ -101,7 +129,7 @@ function HeadComp() {
                 if (!timeLst.includes(task.id)) {
                   return (
                     <Todo
-                      key={ind}
+                      key={task.id}
                       index={ind}
                       task={task}
                       timeStampList={timeStampList}
@@ -123,7 +151,7 @@ function HeadComp() {
                 Completed:
               </span>
               {completed.map((task, ind) => (
-                <Todo key={ind} task={task} disabld={true}></Todo>
+                <Todo key={task.id} task={task} disabld={true}></Todo>
               ))}
             </div>
           </div>

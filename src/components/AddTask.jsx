@@ -15,6 +15,7 @@ const AddTask = ({ taskList, setTaskList }) => {
           ...taskData,
           id: timeStamp,
           duration: { d: 0, h: 0, m: 0, s: 0, ms: 0 },
+          isCheck: false,
         },
       ];
       localStorage.setItem("taskList", JSON.stringify(temp));

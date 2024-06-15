@@ -6,14 +6,6 @@ function DeleteTask({ task, disabld }) {
     useContext(PContext);
 
   const deleteTask = (id) => {
-    const index = taskList.findIndex((card) => card.id === id);
-    let newTaskList = [...taskList];
-    newTaskList.splice(index, 1);
-
-    console.log(newTaskList);
-    localStorage.setItem("taskList", JSON.stringify(newTaskList));
-
-    setTaskList(newTaskList);
     if (disabld === true) {
       const index = completed.findIndex((card) => card.id === id);
       let newTaskList = [...completed];
@@ -23,6 +15,14 @@ function DeleteTask({ task, disabld }) {
       localStorage.setItem("completedTask", JSON.stringify(newTaskList));
 
       setCompleted(newTaskList);
+    } else {
+      const index = taskList.findIndex((card) => card.id === id);
+      let newTaskList = [...taskList];
+      newTaskList.splice(index, 1);
+
+      console.log(newTaskList);
+      localStorage.setItem("taskList", JSON.stringify(newTaskList));
+      setTaskList(newTaskList);
     }
   };
   return (
