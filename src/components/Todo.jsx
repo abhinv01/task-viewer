@@ -79,7 +79,7 @@ function Todo({ task, index, disabld }) {
       <div
         style={{ opacity: isDragging ? 0.9 : 1 }}
         ref={drag}
-        className="relative border-2 max-w-md min-h-40 my-2 mx-2 sm:mx-0 bg-white p-4 pt-2 rounded-lg flex flex-col items-start card-todo"
+        className="relative border-2 max-w-md min-h-40 my-2 mx-2 sm:mx-0 bg-white p-4 pt-2 rounded-lg flex flex-col items-start"
       >
         {" "}
         <div className="self-end mb-2">

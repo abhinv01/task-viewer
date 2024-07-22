@@ -77,11 +77,11 @@ input:checked::before {
   top: -5px;
 }
 
-.card-todo {
+/* .card-todo {
   transition: 0.2s;
 }
 
 .card-todo:hover {
   transform: scale(1.02);
   box-shadow: 0 0 5px black;
-}
+} */
